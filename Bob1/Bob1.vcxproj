@@ -24,6 +24,7 @@
     <ProjectGuid>{421daec3-0b0e-4210-8239-98df946e3cc5}</ProjectGuid>
     <RootNamespace>Bob1</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>Lagrange Interpolation (LI - BOB1)</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -127,10 +128,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Bob1.cpp" />
+    <ClCompile Include="Lagrange Interpolation %28LI - BOB1%29.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Bob.py" />
+    <None Include="plot.py" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

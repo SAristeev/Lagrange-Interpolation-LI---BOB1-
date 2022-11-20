@@ -15,12 +15,12 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Bob1.cpp">
+    <ClCompile Include="Lagrange Interpolation %28LI - BOB1%29.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Bob.py">
+    <None Include="plot.py">
       <Filter>Исходные файлы</Filter>
     </None>
   </ItemGroup>
