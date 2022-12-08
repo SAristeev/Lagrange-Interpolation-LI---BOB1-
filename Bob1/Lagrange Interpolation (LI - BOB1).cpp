@@ -1,7 +1,7 @@
-﻿#include <iostream>
-#include <fstream>
-#include <random>
+﻿#define _CRT_SECURE_NO_WARNINGS // для fopen в visual studio
 #include <cmath>
+#include <cstdio>
+#include <random>
 
 double f(double x) { // функция, которую будем интерполировать - (x-4)^4 + (x-3)^3 + (x-2)^2 + (x-1) + 1
     return pow(x-1,4) + pow(x - 3, 3) + pow(x - 2, 2) + 100 * sin(x);
@@ -55,50 +55,51 @@ int main(){
         L[i] = tmp;
     }
     
-    std::ofstream Params;
-    Params.open("Params.txt"); // там будем хранить a и b
-    Params << a << ", " << b << std::endl;
-    Params.close();
+    FILE *Params;
+    Params = fopen("Params.txt", "w"); // там будем хранить a и b
+    fprintf(Params,"%f, %f", a, b);
+    fclose(Params);
 
 
     
-    std::ofstream XFile, FFile; // создаем файловые потоки для печати в память
+    FILE *XFile, *FFile; // создаем файловые потоки для печати в память
     
-    XFile.open("X.txt"); // открываем каждый из файлов
-    FFile.open("F.txt");
+    XFile = fopen("X.txt", "w"); // открываем каждый из файлов
+    FFile = fopen("F.txt", "w");
     
     for (int i = 0; i < N - 1; i++)  // печатаем каждый элемент до предпоследнего. После него запятую ставить не нужно
     {
-        XFile << X[i] << ", ";
-        FFile << F[i] << ", ";
+        fprintf(XFile, "%f, ",X[i]);
+        fprintf(FFile, "%f, ",F[i]);
     }
 
-    XFile << X[N - 1] << std::endl; // печатаем последний элемент
-    FFile << F[N - 1] << std::endl;
-    XFile.close(); // закрываем каждый файл
-    FFile.close();
+    fprintf(XFile, "%f\n", X[N - 1]); // печатаем последний элемент
+    fprintf(FFile, "%f\n", F[N - 1]);
+    fclose(XFile); // закрываем каждый файл
+    fclose(FFile);
 
     
 
-    std::ofstream meshFile, FmeshFile, LFile;
-    meshFile.open("mesh.txt"); // открываем каждый из файлов
-    FmeshFile.open("Fmesh.txt"); // всего у нас их будет много
-    LFile.open("L.txt");
+    FILE *meshFile, *FmeshFile, *LFile;
+    meshFile = fopen("mesh.txt", "w"); // открываем каждый из файлов
+    FmeshFile = fopen("Fmesh.txt", "w"); // всего у нас их будет много
+    LFile = fopen("L.txt", "w");
 
     for (int i = 0; i < M - 1; i++) // аналогично для массива значений
     { 
-        meshFile << mesh[i] << ", ";
-        FmeshFile << f(mesh[i]) << ", ";
-        LFile << L[i] << ", ";
+        fprintf(meshFile, "%f, ", mesh[i]);
+        fprintf(FmeshFile, "%f, ", f(mesh[i]));
+        fprintf(LFile, "%f, ", L[i]);
     }
 
-    FmeshFile << f(mesh[M - 1]) << std::endl;
-    meshFile << mesh[M - 1] << std::endl; // печатаем последний элемент
-    LFile << L[M - 1] << std::endl;
+
+    fprintf(meshFile, "%f\n", mesh[M - 1]); // печатаем последний элемент
+    fprintf(FmeshFile, "%f\n", f(mesh[M - 1]));
+    fprintf(LFile, "%f\n", L[M - 1]);
  
-    meshFile.close();
-    FmeshFile.close();
-    LFile.close();
+    fclose(meshFile);
+    fclose(FmeshFile);
+    fclose(LFile);
 
 
     std::system("python plot.py"); // эта команда вызывает командную строку и включает питоновскую часть задачи
